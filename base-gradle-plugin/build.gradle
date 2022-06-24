@@ -1,0 +1,15 @@
+plugins {
+    id 'groovy'
+}
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.yqyzxd'
+dependencies{
+    implementation gradleApi()
+    implementation localGroovy()
+    compileOnly 'com.android.tools.build:gradle:4.1.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
