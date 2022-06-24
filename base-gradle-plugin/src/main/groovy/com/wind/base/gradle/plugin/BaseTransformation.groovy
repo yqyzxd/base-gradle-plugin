@@ -82,7 +82,7 @@ abstract class BaseTransformation extends Transform{
      */
     abstract <T extends BaseHandler> T getHandler()
 
-    private void collectAndIdentifyDir(Map<File, File> dirInputMap, DirectoryInput input, File dirOutput, boolean isIncremental) {
+    void collectAndIdentifyDir(Map<File, File> dirInputMap, DirectoryInput input, File dirOutput, boolean isIncremental) {
         final File dirInput = input.file
         if (!dirOutput.exists()) {
             dirOutput.mkdirs()
@@ -119,7 +119,7 @@ abstract class BaseTransformation extends Transform{
 
     }
 
-    private void collectAndIdentifyJar(Map<File, File> jarInputMap, JarInput input, File jarOutput, boolean isIncremental) {
+    void collectAndIdentifyJar(Map<File, File> jarInputMap, JarInput input, File jarOutput, boolean isIncremental) {
         final jarFile = input.file
         if (Util.isRealZipOrJar(jarFile)) {
             switch (input.status) {
