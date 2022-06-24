@@ -11,8 +11,7 @@ import com.android.build.api.transform.TransformException
 import com.android.build.api.transform.TransformInvocation
 import com.android.build.api.transform.TransformOutputProvider
 import com.android.build.gradle.internal.pipeline.TransformManager
-import com.google.common.hash.Hashing
-import org.apache.commons.io.Charsets
+
 
 abstract class BaseTransformation extends Transform{
 
@@ -61,7 +60,7 @@ abstract class BaseTransformation extends Transform{
                 if (jarInput.getStatus() != Status.REMOVED) {
 
                     def outputJarLocation = outputProvider.getContentLocation(
-                            getUniqueJarName(jarInput.file),
+                            Util.getUniqueJarName(jarInput.file),
                             jarInput.contentTypes,
                             jarInput.scopes,
                             Format.JAR
@@ -140,16 +139,5 @@ abstract class BaseTransformation extends Transform{
     }
 
 
-    private String getUniqueJarName(File jarFile) {
-        final String originJarName = jarFile.getName()
-        final String hashing = Hashing.sha1().hashString(jarFile.getPath(), Charsets.UTF_16)
-        final int dotPos = originJarName.lastIndexOf(".")
-        if (dotPos < 0) {
-            return "${originJarName}_${hashing}"
-        } else {
-            final String nameWithoutDotExt = originJarName.substring(0, dotPos)
-            final String dotExt = originJarName.substring(dotPos)
-            return "${nameWithoutDotExt}_${hashing}${dotExt}"
-        }
-    }
+
 }

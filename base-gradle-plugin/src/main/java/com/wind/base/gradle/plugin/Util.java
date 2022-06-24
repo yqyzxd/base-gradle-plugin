@@ -1,11 +1,11 @@
 package com.wind.base.gradle.plugin;
-
 import java.io.File;
 import java.io.InputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
-
+import com.google.common.hash.Hashing;
+import org.apache.commons.io.Charsets;
 /**
  * Copyright (C), 2015-2022, 杭州迈优文化创意有限公司
  * FileName: Util
@@ -61,5 +61,18 @@ public class Util {
             zipOutputStream.closeEntry();
         }
 
+    }
+
+    public static String getUniqueJarName(File jarFile) {
+        final String originJarName = jarFile.getName();
+        final String hashing = Hashing.sha1().hashString(jarFile.getPath(), Charsets.UTF_16).toString();
+        final int dotPos = originJarName.lastIndexOf(".");
+        if (dotPos < 0) {
+            return originJarName+"_"+hashing;
+        } else {
+            final String nameWithoutDotExt = originJarName.substring(0, dotPos);
+            final String dotExt = originJarName.substring(dotPos);
+            return nameWithoutDotExt+"_"+hashing+dotExt;
+        }
     }
 }
