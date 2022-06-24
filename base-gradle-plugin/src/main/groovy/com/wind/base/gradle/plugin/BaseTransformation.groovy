@@ -70,8 +70,7 @@ abstract class BaseTransformation extends Transform{
                 }
             }
 
-
-            handle(jarInputMap,srcInputMap)
+            getHandler().handle(srcInputMap,jarInputMap)
 
         }
 
@@ -82,7 +81,7 @@ abstract class BaseTransformation extends Transform{
      * @param jarMap
      * @param srcMap
      */
-    abstract void handle(Map<File, File> jarMap,Map<File, File> srcMap)
+    abstract <T extends BaseHandler> T getHandler()
 
     private void collectAndIdentifyDir(Map<File, File> dirInputMap, DirectoryInput input, File dirOutput, boolean isIncremental) {
         final File dirInput = input.file
