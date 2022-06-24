@@ -80,13 +80,13 @@ public abstract class BaseHandler {
     }
 
     public abstract boolean exclude(String name);
-    public abstract ClassVisitor getClassVisitor();
+    public abstract ClassVisitor getClassVisitor(ClassVisitor classVisitor);
 
     private byte[] visit(InputStream inputStream) throws IOException {
         //使用asm修改class
         ClassReader classReader = new ClassReader(inputStream);
         ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_MAXS);
-        ClassVisitor classVisitor = getClassVisitor();
+        ClassVisitor classVisitor = getClassVisitor(classWriter);
         classReader.accept(classVisitor, ClassReader.EXPAND_FRAMES);
 
         return classWriter.toByteArray();
